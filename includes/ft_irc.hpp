@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_irc.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpoilly <kpoilly@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aautin <aautin@student.42.fr >             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:08:36 by kpoilly           #+#    #+#             */
-/*   Updated: 2024/11/26 15:45:17 by kpoilly          ###   ########.fr       */
+/*   Updated: 2024/12/03 18:51:24 by aautin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,11 @@
 # include <csignal>
 # include <cstdio>
 # include <stdlib.h>
+# include <exception>
 
-# include "server.hpp"
-# include "client.hpp"
-# include "channel.hpp"
-# include "user.hpp"
-
-# define DEFAULT_IRC_PORT	6667
-# define MAX_CLIENTS_NB		5
-
-# define RPL_VERSION		"1.0"
-# define RPL_ISUPPORT		"005"
-
-//errors
-# define ERR_NICKNAMEINUSE		"433"
-# define ERR_NONICKNAMEGIVEN	"431"
-# define ERR_NOSUCHNICK 		"401"
-
-class Server;
-
-void	parsing(Server& server, int client_fd, std::string cmd);
-
-//utils
-void	stoc(int client_fd, std::string msg);
-
-//commands
-void	cap(int client_fd, std::string arg);
-void	pong(int client_fd, std::string arg);
-void	version(int client_fd);
-void	motd(Server &server, int client_fd);
-void	user(Server& server, int client_fd, std::string name, std::string IP, std::string real);
-void	nick(Server& server, int client_fd, std::string arg);
+# include "Channel.hpp"
+# include "Message.hpp"
+# include "Server.hpp"
+# include "User.hpp"
 
 #endif
