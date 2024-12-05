@@ -6,7 +6,7 @@
 /*   By: kpoilly <kpoilly@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:08:36 by kpoilly           #+#    #+#             */
-/*   Updated: 2024/12/05 14:36:55 by kpoilly          ###   ########.fr       */
+/*   Updated: 2024/12/05 15:55:20 by kpoilly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 //codes
 # define RPL_VERSION		"1.0"
 # define RPL_ISUPPORT		"005"
+# define RPL_MOTDSTART		"375"
 # define RPL_WHOISUSER		"311"
 # define RPL_WHOISCHANNELS	"319"
 # define RPL_ENDOFWHOIS		"318"
@@ -51,6 +52,7 @@
 # define ERR_NONICKNAMEGIVEN	"431"
 # define ERR_NOSUCHNICK 		"401"
 # define ERR_NOSUCHCHANNEL		"403"
+# define ERR_NOMOTD				"422"
 
 class Server;
 

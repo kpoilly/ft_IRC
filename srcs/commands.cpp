@@ -6,7 +6,7 @@
 /*   By: kpoilly <kpoilly@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:32:30 by kpoilly           #+#    #+#             */
-/*   Updated: 2024/12/05 14:26:56 by kpoilly          ###   ########.fr       */
+/*   Updated: 2024/12/05 16:08:14 by kpoilly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void	version(int client_fd)
 void	motd(Server &server, int client_fd)
 {
 	if (server.get_motd().empty())
-		stoc(client_fd, "422" + server.get_user(client_fd).get_name() + " :No MOTD set\r\n");
+		stoc(client_fd, ERR_NOMOTD + server.get_user(client_fd).get_name() + " :No MOTD set\r\n");
 	else
-		stoc(client_fd, "375" + server.get_user(client_fd).get_name() + " :Message of the Day \r\n372 :" +
+		stoc(client_fd, RPL_MOTDSTART + server.get_user(client_fd).get_name() + " :Message of the Day \r\n372 :" +
 		server.get_motd() + "\r\n376 " + server.get_user(client_fd).get_name() + " :End of MOTD.\r\n");
 };
 
@@ -104,3 +104,30 @@ void	whois(Server &server, int client_fd, std::string arg)
 	//afficher les details des channels sur lequel le user est.
 	stoc(client_fd, RPL_ENDOFWHOIS + user.get_name() + " " + arg + " :End of /WHOIS list.\r\n");
 };
+
+void	pass(Server &server, int client_fd, std::string arg)
+{
+	User& user = server.get_user(client_fd);
+	
+	if (server.get_password() != "" && arg != server.get_password())
+	{
+		stoc(client_fd, "464 " + user.get_name() + " :Password incorrect.\r\n");
+		server.remove_user(&user);
+		//deconnecter le client et son pollfd (les remove des vector et les "desaccepter" ?)
+	}
+};
+
+//OPs restantes:
+//PRIVMSG
+//MODE
+//WHO
+//QUIT
+
+//+ Channel OPs:
+//JOIN
+//PART
+//TOPIC
+//NAMES
+//LIST
+//INVITE
+//KICK
